@@ -4,15 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
-use App\Scopes\ScopePerson;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Person extends Model
 {
+    use SoftDeletes;
+    use HasFactory;
+    protected $guarded = array('id');
+    public static $rules = array(
+        'name' => 'required',
+        'age' => 'integer|min:0|max:150',
+    );
     public function getData()
     {
-        $txt = $this->id . ':' . $this->name . '(' . $this->age . ')';
-        return $txt;
+        return $this->id . ':' . $this->name . '(' . $this->age . ')';
     }
     public function scopeNameEqual($query, $str)
     {
@@ -26,9 +31,12 @@ class Person extends Model
     {
         return $query->where('age', '<=', $n);
     }
-    protected static function boot()
+    public function board()
     {
-        parent::boot();
-        static::addGlobalScope(new ScopePerson);
+        return $this->hasOne('App\Models\Board');
+    }
+    public function boards()
+    {
+        return $this->hasMany('App\Models\Board');
     }
 }

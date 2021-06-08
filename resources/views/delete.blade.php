@@ -22,23 +22,16 @@
 
 
 @section('content')
-<form action="/delete" method="POST">
+<form action="/delete" method="post">
   <table>
     @csrf
-    <tr>
-      <th>
-        id
-      </th>
-      <td>
-        <input type="text" name="id" value="{{$form->id}}">
-      </td>
-    </tr>
+    <input type="hidden" name="id" value="{{ $form->id }}">
     <tr>
       <th>
         name
       </th>
       <td>
-        <input type="text" name="name" value="{{$form->name}}">
+        {{$form->name}}
       </td>
     </tr>
     <tr>
@@ -46,7 +39,7 @@
         age
       </th>
       <td>
-        <input type="text" name="age" value="{{$form->age}}">
+        {{$form->age}}
       </td>
     </tr>
   </table>

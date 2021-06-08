@@ -22,23 +22,25 @@
 
 
 @section('content')
-<form action="/edit" method="POST">
+@if (count($errors) > 0)
+<ul>
+  @foreach ($errors->all() as $error)
+  <li>
+    {{$error}}
+  </li>
+  @endforeach
+</ul>
+@endif
+<form action="/edit" method="post">
   <table>
     @csrf
-    <tr>
-      <th>
-        id
-      </th>
-      <td>
-        <input type="text" name="id" value="{{$form->id}}">
-      </td>
-    </tr>
+    <input type="hidden" name="id" value="{{ $form->id }}">
     <tr>
       <th>
         name
       </th>
       <td>
-        <input type="text" name="name" value="{{$form->name}}">
+        <input type="text" name="name" value="{{ $form->name }}">
       </td>
     </tr>
     <tr>
@@ -46,9 +48,10 @@
         age
       </th>
       <td>
-        <input type="text" name="age" value="{{$form->age}}">
+        <input type="text" name="age" value="{{ $form->age }}">
       </td>
     </tr>
   </table>
   <button>送信</button>
 </form>
+@endsection
