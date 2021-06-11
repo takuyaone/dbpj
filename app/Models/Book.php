@@ -14,6 +14,6 @@ class Book extends Model
     ];
 
     protected $fillable=[
-        'uuid','name','parice'
+        'uuid','name','price'
     ];
 }
